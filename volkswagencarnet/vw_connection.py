@@ -701,13 +701,13 @@ class Connection:
             _LOGGER.warning(f"Could not fetch StoredVehicleDataResponse, error: {error}")
         return False
 
-    async def getTripStatistics(self, vin):
+    async def getTripStatistics(self, vin, date_from, date_to):
         """Get short term trip statistics."""
         if not await self.validate_tokens:
             return False
         try:
             response = await self.get(
-                f"fs-car/bs/tripstatistics/v1/{BRAND}/{self._session_country}/vehicles/$vin/tripdata/shortTerm?newest",
+                f"fs-car/bs/tripstatistics/v1/{BRAND}/{self._session_country}/vehicles/$vin/tripdata/shortTerm?from=2023-05-30T23:00:00.000Z&to=2023-06-22T22:59:59.999Z",
                 vin=vin,
             )
             if response.get("tripData", {}):
